@@ -3,28 +3,39 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-
+import { CommfunProvider } from '../providers/commfun/commfun';
+import { IonicStorageModule } from '@ionic/storage';
+import { Network } from '@ionic-native/network';
+import { SQLite } from '@ionic-native/sqlite';
+import { Camera } from '@ionic-native/camera';
+import { HttpClientModule } from '@angular/common/http';
+import { Device } from '@ionic-native/device';
+import { Sim } from '@ionic-native/sim';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Network,
+    Camera,
+    SQLite,
+    Device,
+    Sim,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CommfunProvider
   ]
 })
 export class AppModule {}
