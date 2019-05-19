@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { CommfunProvider } from '../../providers/commfun/commfun';
-import { Storage } from '@ionic/storage';
-
 @IonicPage()
 @Component({
   selector: 'page-listcustomer',
@@ -19,7 +17,6 @@ public isRecordAvailable:boolean =false;
       public navParams: NavParams,
       public http:HttpClient,
       public alertCtrl: AlertController,
-      public storage: Storage,
       private myFunc: CommfunProvider,
       private loadingCtrl: LoadingController,
       ) {

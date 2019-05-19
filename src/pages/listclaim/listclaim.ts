@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-import { Storage } from '@ionic/storage';
 import { CommfunProvider } from '../../providers/commfun/commfun';
 import { Observable } from 'rxjs/Observable';
 
@@ -18,7 +17,6 @@ export class ListclaimPage {
       public navCtrl: NavController, 
       public navParams: NavParams,
       public http:HttpClient,
-      public storage: Storage,
       public alertCtrl: AlertController,
       private loadingCtrl: LoadingController,
       private myFunc: CommfunProvider

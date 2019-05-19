@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { CommfunProvider } from '../../providers/commfun/commfun';
-import { Storage } from '@ionic/storage';
-
 @IonicPage()
 @Component({
   selector: 'page-claimdetails',
@@ -19,7 +17,6 @@ export class ClaimdetailsPage {
       public navCtrl: NavController, 
       public navParams: NavParams,
       public http:HttpClient,
-      public storage: Storage,
       public alertCtrl: AlertController,
       private loadingCtrl: LoadingController,
       private myFunc: CommfunProvider

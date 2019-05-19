@@ -1,9 +1,47 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>fileupload</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Check File</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-</ion-content>
+<ion-content padding >
+  <ion-list *ngIf="json">
+  <ion-list *ngFor="let item of json; index as j">
+  <ion-card style="border-radius: 3px;">
+    <ion-grid>
+    <ion-card-content style="color: #333333;">
+    <ion-row>  
+  <ion-col col-4 left> <ion-label> <strong>Docx. #{{j+1}}</strong></ion-label></ion-col><ion-col col-8 left> <ion-label> <strong>Date :</strong> {{item.created_date|date}}</ion-label></ion-col></ion-row>
+      <ion-row class="bottomRow" *ngIf="item.document_type=='Image Capture' || item.document_type=='Image Gallery'">	
+      <img src="http://www.arkaautomaations.com/simpsonWMS{{item.file_path}}" width="200px;" height="200px;" />
+      </ion-row>
+      <ion-row class="bottomRow" *ngIf="item.document_type=='Audio'">
+      <audio controls>                                        
+                  <source src="http://www.arkaautomaations.com/simpsonWMS{{item.file_path}}" type="audio/ogg">                                                        
+          </audio>
+      </ion-row>
+          <ion-row class="bottomRow" *ngIf="item.document_type=='Video Capture'">
+      <video controls width="250px;" height="200px;">                                        
+                  <source src="http://www.arkaautomaations.com/simpsonWMS{{item.file_path}}" type="video/mp4">                                                        
+          </video>
+      </ion-row>
+      <ion-row class="bottomRow">
+          <ion-label>{{item.remarks}}</ion-label>
+      </ion-row>			
+      </ion-card-content>		
+    </ion-grid>
+  </ion-card>
+  </ion-list>
+  </ion-list>
+  <ion-list *ngIf="!json">
+      <ion-card style="border-radius: 3px;">
+    <ion-grid>
+    <ion-card-content style="color: #333333;">
+      <ion-row>	
+          <ion-col col-12 text-center><strong>No Records Found</strong></ion-col>
+      </ion-row>		
+      </ion-card-content>		
+    </ion-grid>
+  </ion-card> 
+  </ion-list>
+  </ion-content>
