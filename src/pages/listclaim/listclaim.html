@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Claim List</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar showCancelButton="true" (ionInput)="onSearch($event)"
+      placeholder="Search Invoice / Claim Status"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="bg-content">
+
+  <ion-list *ngIf="claimJson">
+    <ion-list *ngFor="let c of claimJson; index as i">
+
+      <ion-card style="border-radius: 3px;">
+        <ion-list>
+          <ion-row>
+            <ion-col col-9>
+              <ion-row>
+                <ion-col col-4><strong>No</strong></ion-col>
+                <ion-col col-1> :</ion-col>
+                <ion-col col-7>&nbsp;{{c.invoice_no}}</ion-col>
+              </ion-row>
+              <ion-row class="bottomRow">
+                <ion-col col-4><strong>Date</strong></ion-col>
+                <ion-col col-1> :</ion-col>
+                <ion-col col-7>&nbsp;{{c.invoice_date| date:'d MMM yyyy'}}</ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-2 right (click)="goToClaimDetailsPage(c.claim_id)" style="margin-top:12px; margin-right:20px;">
+              <button ion-button color="primary">
+                <ion-icon name="ios-arrow-forward" color="light"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+          <ion-card-content style="color: #333333; margin-left:-10px; margin-top:-20px;">
+            <ion-row class="bottomRow">
+              <ion-col col-3><strong>Status</strong></ion-col>
+              <ion-col col-1> :</ion-col>
+              <ion-col col-7>{{c.claim_status}}</ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-list>
+
+      </ion-card>
+    </ion-list>
+  </ion-list>
+  <ion-list *ngIf="isRecordAvailable">
+    <ion-card style="border-radius: 3px;">
+      <ion-grid>
+        <ion-card-content style="color: #333333;">
+          <ion-row>
+            <ion-col col-12 text-center><strong>No Records Found</strong></ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-grid>
+    </ion-card>
+  </ion-list>
+</ion-content>

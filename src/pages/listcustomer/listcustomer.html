@@ -1,15 +1,50 @@
-<!--
-  Generated template for the ListcustomerPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>listcustomer</ion-title>
+  <ion-navbar color="primary" >
+    <ion-title>Customer List</ion-title>
   </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar showCancelButton="true" (ionInput)="onSearch($event)"
+      placeholder="Search By Name / City / State"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
-
-<ion-content padding>
-
-</ion-content>
+<ion-content padding class="bg-content">
+  <ion-list *ngIf="custJson">
+    <ion-list *ngFor="let c of custJson; index as i">
+      <ion-card style="border-radius: 3px;">
+        <ion-grid>
+          <ion-card-content style="color: #333333;">
+            <ion-row style="margin-left:-20px;">
+            <ion-col col-10>
+              <ion-row class="bottomRow">	
+                <ion-col col-3><strong>Name</strong></ion-col><ion-col col-1 text-center> : </ion-col><ion-col col-8>{{c.customer_name}}</ion-col>
+              </ion-row>
+              <ion-row class="bottomRow">	
+                <ion-col col-3><strong>City</strong></ion-col><ion-col col-1 text-center> : </ion-col><ion-col col-8>{{c.city}}</ion-col>
+              </ion-row>
+              <ion-row class="bottomRow">	
+                <ion-col col-3><strong>State</strong></ion-col><ion-col col-1 text-center> : </ion-col><ion-col col-8>{{c.state}}</ion-col>
+              </ion-row>				
+            </ion-col>
+            <ion-col col-2 right (click)="goToClaimPage(c.customer_code)">
+              <button ion-button color="primary">
+                  <ion-icon name="ios-arrow-forward" color="light"></ion-icon>
+              </button>
+            </ion-col>
+            </ion-row>		
+          </ion-card-content>		
+        </ion-grid>
+      </ion-card>
+    </ion-list>
+  </ion-list> 	
+  <ion-list *ngIf="isRecordAvailable">
+      <ion-card style="border-radius: 3px;">
+    <ion-grid>
+    <ion-card-content style="color: #333333;">
+      <ion-row>	
+          <ion-col col-12 text-center><strong>No Records Found</strong></ion-col>
+      </ion-row>		
+      </ion-card-content>		
+    </ion-grid>
+  </ion-card> 
+  </ion-list>
+  </ion-content>

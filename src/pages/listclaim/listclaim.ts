@@ -1,44 +1,45 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs/Observable';
 import { CommfunProvider } from '../../providers/commfun/commfun';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
-  selector: 'page-listregion',
-  templateUrl: 'listregion.html',
+  selector: 'page-listclaim',
+  templateUrl: 'listclaim.html',
 })
-export class ListregionPage {
-  public regionJson: any;
+export class ListclaimPage {
+  public strCustCode:string;
+  public claimJson:any;
   public isRecordAvailable:boolean =false;
   constructor(
-      public navCtrl: NavController,
+      public navCtrl: NavController, 
       public navParams: NavParams,
-      private http: HttpClient,
-      private storage: Storage,
+      public http:HttpClient,
+      public storage: Storage,
+      public alertCtrl: AlertController,
       private loadingCtrl: LoadingController,
       private myFunc: CommfunProvider
-    ) {
-      
+      ) 
+    {
+      this.strCustCode = this.navParams.get('custCode');
   }
 
   ionViewDidLoad() {
-    this.storage.get('lsUserID').then((userID) => {
-      this.getRegionListByUserID(userID);
+    this.getClaimDetailsByCustCode(this.strCustCode);
+  }
+
+  goToClaimDetailsPage(claimID:number){
+    this.navCtrl.push('ClaimdetailsPage',{
+      "claimID" :claimID
     });
   }
-  
-goToCustomerList(regMasterID:number){
-  this.navCtrl.push('',{
-    "regMasterID" :regMasterID
-  });
-}
 
-  getRegionListByUserID(userID) {
+  getClaimDetailsByCustCode(custCode) {
     let data: Observable<any>;
-    let url = this.myFunc.domainURL + "SalesAppAPI/list_region.php?rid=" + userID;
+    let url = this.myFunc.domainURL + "SalesAppAPI/RequestClaim.php?AdminData=Admin&custcode=" + custCode;
     let loader = this.loadingCtrl.create({
       content: 'Fetching Data From Server...'
     });
@@ -47,7 +48,7 @@ goToCustomerList(regMasterID:number){
       data.subscribe(result => {
         console.log(result);
         this.isRecordAvailable = false;
-        this.regionJson = result;
+        this.claimJson = result;
         loader.dismiss();
       }, error => {
         this.isRecordAvailable = true;
@@ -62,15 +63,14 @@ goToCustomerList(regMasterID:number){
     console.log(event.target.value);
     var searchTxt = event.target.value;
     if (searchTxt != '' && searchTxt != null && searchTxt != undefined){
-      this.regionJson = this.regionJson.filter((item) => {
-        return item.region_name.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1;
+      this.claimJson = this.claimJson.filter((item) => {
+        return item.invoice_no.toLowerCase().indexOf(item.toLowerCase()) > -1 || item.claim_status.toLowerCase().indexOf(item.toLowerCase()) > -1;
       });
     }else{
-      this.regionJson= null;
-      this.storage.get('lsUserID').then((userID) => {
-        this.getRegionListByUserID(userID);
-      });
+      this.claimJson= null;
+      this.getClaimDetailsByCustCode(this.strCustCode);
     }
   }
+
 
 }

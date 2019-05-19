@@ -41,39 +41,40 @@ export class LoginPage {
   }
 
   chkLogin() {
+    this.navCtrl.push('Homepage');
     // console.log(this.userName);
     // console.log(this.userPassword);
-    let data: Observable<any>;
-    let url = this.myFunc.domainURL + 'SalesAppAPI/LoginApi.php?LGP=1';
-    let queryParams = JSON.stringify({ Mobile: this.userMobile, Password: this.userPassword });
+    // let data: Observable<any>;
+    // let url = this.myFunc.domainURL + 'SalesAppAPI/LoginApi.php?LGP=1';
+    // let queryParams = JSON.stringify({ Mobile: this.userMobile, Password: this.userPassword });
 
-    let loader = this.loadingCtrl.create({
-      content: 'Verifying User'
-    });
+    // let loader = this.loadingCtrl.create({
+    //   content: 'Verifying User'
+    // });
 
-    data = this.http.post(url, queryParams);
-    loader.present().then(() => {
-      data.subscribe(result => {
-        console.log(result);
-        if (result != 0) {
-          if (result[0].status != '0') {
-            this.storage.set('lsUserID', result[0].sales_person_master_id);
-            this.storage.set('lsUserPwd', result[0].password);
-            this.storage.set('lsUserName', result[0].sales_person_name);
-            this.storage.set('lsMobileNo', this.userMobile);
-            this.navCtrl.setRoot('HomePage');
-          } else {
-            this.toastMsgFn('Account In-Active');
-          }
-        } else {
-          this.toastMsgFn('User Name or Password is Invalid');
-        }
-        loader.dismiss();
-      }, error => {
-        console.log(error);
-        loader.dismiss();
-      });
-    });
+    // data = this.http.post(url, queryParams);
+    // loader.present().then(() => {
+    //   data.subscribe(result => {
+    //     console.log(result);
+    //     if (result != 0) {
+    //       if (result[0].status != '0') {
+    //         this.storage.set('lsUserID', result[0].sales_person_master_id);
+    //         this.storage.set('lsUserPwd', result[0].password);
+    //         this.storage.set('lsUserName', result[0].sales_person_name);
+    //         this.storage.set('lsMobileNo', this.userMobile);
+    //         this.navCtrl.setRoot('HomePage');
+    //       } else {
+    //         this.toastMsgFn('Account In-Active');
+    //       }
+    //     } else {
+    //       this.toastMsgFn('User Name or Password is Invalid');
+    //     }
+    //     loader.dismiss();
+    //   }, error => {
+    //     console.log(error);
+    //     loader.dismiss();
+    //   });
+    // });
   }
 
   toastMsgFn(msg: string) {

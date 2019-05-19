@@ -14,13 +14,23 @@ export class HomePage {
     public navParams: NavParams,
     private storage: Storage
   ) {
-    // this.storage.clear().then(() => {
-    //   console.log('all keys are cleared');
-    // });
+  
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
   }
 
+  listRegion(){
+    this.navCtrl.push('ListregionPage');
+  }
+
+  goToChangePwd(){
+    this.navCtrl.push('ChangepwdPage');
+  }
+
+  logOutFn(){
+  this.storage.clear().then(() => {
+      console.log('all keys are cleared');
+    });
+  }
 }

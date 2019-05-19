@@ -1,15 +1,47 @@
-<!--
-  Generated template for the HomePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>home</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>
+      Simpson Sales Person
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content padding class="bg-content">
+  
+  <ion-grid>
+    <ion-row text-center>
+      <ion-col col-6 (click)="listRegion()">
+        <ion-card>
+          <ion-card-header text-wrap>
+            List Region
+          </ion-card-header>
+          <ion-card-content>
+            <img src="../../assets/imgs/logo.png" />
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 (click)="goToChangePwd()">
+        <ion-card>
+          <ion-card-header>
+            Change Password
+          </ion-card-header>
+          <ion-card-content>
+            <img src="../../assets/imgs/logo.png"/>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 (click)="logOutFn()">
+        <ion-card>
+          <ion-card-header>
+            Logout
+          </ion-card-header>
+          <ion-card-content>
+            <img src="../../assets/imgs/logo.png"/>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>	  
+	  </ion-row>
+	 
+  </ion-grid>
+  
 </ion-content>
