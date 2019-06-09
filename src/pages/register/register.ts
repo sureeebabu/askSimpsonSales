@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, App, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { CommfunProvider } from '../../providers/commfun/commfun';
-import { Storage } from '@ionic/storage';
 import { Device } from '@ionic-native/device';
 import { Sim } from '@ionic-native/sim';
 @IonicPage()
@@ -30,22 +29,30 @@ export class RegisterPage {
     public sim: Sim,
     public device: Device,
     public http: HttpClient,
-    private toastCtrl: ToastController,
-    public app: App, 
-    private storage: Storage,
     public myFunc: CommfunProvider,
     public loadingCtrl: LoadingController,
     ) {
       this.authForm = fb.group({
         'chkFullUserName': [null, Validators.compose([Validators.required])],
         'chkCustCode': [null, Validators.compose([Validators.required])],
-        'chkUserName': [null, Validators.compose([Validators.required])],
-        'chkUserPassword': [null, Validators.compose([Validators.required])]
+        'chkUserName': ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+        'chkUserPassword': ['', Validators.compose([Validators.required, Validators.minLength(8)])],
       });
   }
 
   ionViewDidLoad() {
     
+  }
+  showPassword() {
+    this.showPass = !this.showPass;
+    if (this.showPass) {
+      this.type = 'text';
+    } else {
+      this.type = 'password';
+    }
+  }
+  registerFn(){
+
   }
 
 }

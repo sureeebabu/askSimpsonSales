@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from "@angular/forms";
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
@@ -15,10 +15,10 @@ export class ChangepwdPage {
   authForm: FormGroup;
   public type = 'password';
   public showPass = false;
-  public currentPassword:string;
+  public currentPassword: string;
   public newPassword: string;
   public confirmPassword: string;
-  public lsUserID:any;
+  public lsUserID: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,54 +34,58 @@ export class ChangepwdPage {
       'currentPWD': ['', Validators.compose([Validators.required])],
       'newPWD': ['null', Validators.compose([Validators.required])],
       'confirmPWD': ['', Validators.compose([Validators.required, this.equalto('newPWD')])],
-    })  
+    })
   }
 
-  ionViewDidLoad() { 
-    
+  ionViewDidLoad() {
+
   }
 
-  changePwdFn(){
+  goToRegionPage() {
+    this.navCtrl.setRoot('ListregionPage');
+  }
 
-  this.storage.get('lsUserID').then((userID) => {
+  changePwdFn() {
 
-    let data: Observable<any>;
-    let url = this.myFunc.domainURL + 'SalesAppAPI/UpdatePassword.php?PUP=1';
-    var queryParams= JSON.stringify({ Pword: this.newPassword, UsId: userID });
+    this.storage.get('lsUserID').then((userID) => {
 
-    let loader = this.loadingCtrl.create({
-      content: 'Updating Password...'
-    });
+      let data: Observable<any>;
+      let url = this.myFunc.domainURL + 'SalesAppAPI/UpdatePassword.php?PUP=1';
+      var queryParams = JSON.stringify({ Pword: this.newPassword, UsId: userID });
 
-    data = this.http.post(url, queryParams);
-    loader.present().then(() => {
-      data.subscribe(result => {
-        console.log(result);
-        this.storage.clear().then(() => {
-          console.log('all keys are cleared');
-        });
-        this.navCtrl.setRoot("LoginPage"); 
-        loader.dismiss();
-      }, error => {
-        console.log(error);
-        loader.dismiss();
+      let loader = this.loadingCtrl.create({
+        content: 'Updating Password...'
       });
+
+      data = this.http.post(url, queryParams);
+      loader.present().then(() => {
+        data.subscribe(result => {
+          console.log(result);
+          this.storage.clear().then(() => {
+            console.log('all keys are cleared');
+          });
+          this.navCtrl.setRoot("LoginPage");
+          loader.dismiss();
+        }, error => {
+          console.log(error);
+          loader.dismiss();
+        });
+      });
+
     });
+  }
 
-  });
-}
-
-chkCurrentPWD() {
-  this.storage.get('lsUserPwd').then((userPWD) => {
+  chkCurrentPWD() {
+    this.storage.get('lsUserPwd').then((userPWD) => {
       console.log(userPWD);
-      if (userPWD === this.currentPassword){
+      if (userPWD === this.currentPassword) {
         // alert("Valid")
-      }else{
+      } else {
         this.toastMsgFn('Current Password Not Correct..!');
         this.currentPassword = '';
         // alert("Not Matched")
       }
-    }); 
+    });
   }
 
 

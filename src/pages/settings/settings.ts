@@ -2,36 +2,37 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+ 
+
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+  selector: 'page-settings',
+  templateUrl: 'settings.html',
 })
-export class HomePage {
+export class SettingsPage {
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private storage: Storage
-  ) {
-  
+          public navCtrl: NavController,
+          public navParams: NavParams,
+          private storage: Storage
+    ) {
   }
 
   ionViewDidLoad() {
+
   }
 
-  listRegion(){
-    this.navCtrl.push('ListregionPage');
+  goToRegionPage(){
+    this.navCtrl.setRoot('ListregionPage');
   }
 
-  goToChangePwd(){
+  goToChangePwd() {
     this.navCtrl.push('ChangepwdPage');
   }
-
-  logOutFn(){
+  logOutFn() {
     this.storage.clear().then(() => {
       console.log('all keys are cleared');
     });
-    this.navCtrl.setRoot('LoginPage');
+    this.navCtrl.setRoot("LoginPage");
   }
 }

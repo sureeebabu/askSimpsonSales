@@ -29,6 +29,11 @@ export class ListclaimPage {
     this.getClaimDetailsByCustCode(this.strCustCode);
   }
 
+
+  goToRegionPage() {
+    this.navCtrl.setRoot('ListregionPage');
+  }
+
   goToClaimDetailsPage(claimID:number){
     this.navCtrl.push('ClaimdetailsPage',{
       "claimID" :claimID
@@ -45,8 +50,12 @@ export class ListclaimPage {
     loader.present().then(() => {
       data.subscribe(result => {
         console.log(result);
-        this.isRecordAvailable = false;
-        this.claimJson = result;
+        if(result.length != 0){
+          this.claimJson = result;
+        }else{
+          this.isRecordAvailable = true;
+        }
+        
         loader.dismiss();
       }, error => {
         this.isRecordAvailable = true;

@@ -31,7 +31,7 @@ export class MyApp {
       this.storage.get('lsUserName').then(result => {
         console.log('lsUserName: ' + result);
         if (result != null && result != undefined) {
-          this.rootPage = 'HomePage';
+          this.rootPage = 'ListregionPage';
         } else {
           this.rootPage = 'LoginPage';
         }

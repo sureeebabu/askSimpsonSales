@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="primary" >
     <ion-title>Claim List Details</ion-title>
+    <ion-buttons end>
+      <button text-right ion-button icon-only (click)="goToRegionPage()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -38,7 +43,7 @@
       <ion-row class="bottomRow" *ngIf="cd.approved_status=='0'">
       
         <ion-col col-4><ion-label><strong>Status</strong> <span style="color:#FF0000">&nbsp;&nbsp;*</span></ion-label></ion-col><ion-col col-7>
-      <ion-select [(ngModel)]="warrentyStatus" (ionChange)="onChange(warrentyStatus);">
+      <ion-select [(ngModel)]="warrantyStatus" (ionChange)="onChange(warrantyStatus);">
            <ion-option value="Empty" selected="true">~Choose Status~</ion-option>
         <ion-option value="Sales Person Approved~{{cd.invoice_no}}~{{cd.claim_details_id}}">Approved</ion-option>
         <ion-option value="Sales Person Cancelled~{{cd.invoice_no}}~{{cd.claim_details_id}}">Cancelled</ion-option>
@@ -53,7 +58,7 @@
     </button>
     </ion-col>
   
-    <ion-col (click)="UploadData(cd.claim_details_id)">
+    <ion-col (click)="uploadData(cd.claim_details_id)">
       <button ion-button round>
         <span style="color: #fff; font-size:12px;">View Docx.</span>
     </button>

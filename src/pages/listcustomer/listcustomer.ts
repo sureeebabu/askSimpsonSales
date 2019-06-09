@@ -33,6 +33,10 @@ public isRecordAvailable:boolean =false;
     });
   }
 
+  goToRegionPage() {
+    this.navCtrl.setRoot('ListregionPage');
+  }
+
   getCustomerList(regMasterID) {
     let data: Observable<any>;
     let url = this.myFunc.domainURL + "SalesAppAPI/list_customer.php?cid=" + regMasterID;
@@ -60,7 +64,7 @@ public isRecordAvailable:boolean =false;
     var searchTxt = event.target.value;
     if (searchTxt != '' && searchTxt != null && searchTxt != undefined){
       this.custJson = this.custJson.filter((item) => {
-        return item.customer_name.toLowerCase().indexOf(item.toLowerCase()) > -1 || item.state.toLowerCase().indexOf(item.toLowerCase()) > -1 || item.city.toLowerCase().indexOf(item.toLowerCase()) > -1;
+        return item.customer_name.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 || item.city.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 || item.state.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1;
       });
     }else{
       this.custJson= null;

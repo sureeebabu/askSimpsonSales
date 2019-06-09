@@ -28,8 +28,11 @@ export class LoginPage {
     )
      {
       this.authForm = fb.group({
-        'chkUserMobile': [null, Validators.compose([Validators.required])],
+        // 'chkUserMobile': [null, Validators.compose([Validators.required])],
+        // 'chkUserPassword': [null, Validators.compose([Validators.required])]
+        'chkUserMobile': ['', Validators.compose([Validators.required, Validators.minLength(10)])],
         'chkUserPassword': [null, Validators.compose([Validators.required])]
+      //'chkUserPassword': ['', Validators.compose([Validators.required, Validators.minLength(8)])]
       });      
   }
 
@@ -41,7 +44,7 @@ export class LoginPage {
   }
 
   chkLogin() {
-    //this.navCtrl.push('Homepage');
+    //this.navCtrl.push('ListregionPage');
     // console.log(this.userName);
     // console.log(this.userPassword);
     let data: Observable<any>;
@@ -62,7 +65,7 @@ export class LoginPage {
             this.storage.set('lsUserPwd', result[0].password);
             this.storage.set('lsUserName', result[0].sales_person_name);
             this.storage.set('lsMobileNo', this.userMobile);
-            this.navCtrl.setRoot('HomePage');
+            this.navCtrl.setRoot('ListregionPage');
           } else {
             this.toastMsgFn('Account In-Active');
           }

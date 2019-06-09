@@ -13,6 +13,7 @@ export class ClaimdetailsPage {
   public claimID:number;
   public claimDetJson:any;
   public isRecordAvailable:boolean =false;
+  public warrantyStatus:string;
   constructor(
       public navCtrl: NavController, 
       public navParams: NavParams,
@@ -26,6 +27,10 @@ export class ClaimdetailsPage {
 
   ionViewDidLoad() {
     this.getClaimDetailsByID(this.claimID);
+  }
+
+  goToRegionPage() {
+    this.navCtrl.setRoot('ListregionPage');
   }
 
   goToReviewPage(claimDetailsID,Svalue){
